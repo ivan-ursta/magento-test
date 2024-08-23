@@ -1,11 +1,18 @@
-<?php if ($block->getSpecialPriceEndDate()): ?>
-    <div id="countdown"></div>
+<?php
+$earliestEndDate = $block->getEarliestEndDate();
+?>
+
+<?php if ($earliestEndDate): ?>
+    <div id="countdown" class="countdown-timer"></div>
+    <div class="countdown-info">
+        <span class="countdown-type"><?php echo $earliestEndDate['type']; ?></span>
+    </div>
     <script type="text/javascript">
         require(['jquery', 'jquery.countdown'], function($) {
-            var countDownDate = new Date("<?php echo $block->getSpecialPriceEndDate(); ?>").getTime();
+            var countDownDate = new Date("<?php echo $earliestEndDate['endDate']; ?>").getTime();
 
             $('#countdown').countdown(countDownDate, function(event) {
-                $(this).html(event.strftime('%D days %H:%M:%S'));
+                $(this).html(event.strftime('<span class="days">%D</span> days <span class="hours">%H</span>h <span class="minutes">%M</span>m <span class="seconds">%S</span>s'));
             });
         });
     </script>
