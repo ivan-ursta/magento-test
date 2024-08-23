@@ -1,0 +1,12 @@
+<?php if ($block->getSpecialPriceEndDate()): ?>
+    <div id="countdown"></div>
+    <script type="text/javascript">
+        require(['jquery', 'jquery.countdown'], function($) {
+            var countDownDate = new Date("<?php echo $block->getSpecialPriceEndDate(); ?>").getTime();
+
+            $('#countdown').countdown(countDownDate, function(event) {
+                $(this).html(event.strftime('%D days %H:%M:%S'));
+            });
+        });
+    </script>
+<?php endif; ?>
